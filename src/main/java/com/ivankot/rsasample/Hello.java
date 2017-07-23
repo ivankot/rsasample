@@ -28,7 +28,7 @@ import com.ivankot.rsasample.runtime.Manager;
 import org.apache.commons.cli.CommandLine;
 
 /**
- *
+ * Application entry point, creates a new thread and executes the app
  * @author Ivan
  */
 public class Hello {

@@ -24,12 +24,11 @@
 
 package com.ivankot.rsasample.crypto;
 
-import java.security.Key;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
 /**
- *
+ * Represents the public/private key pair within the app
  * @author Ivan
  */
 public class KeyPair {
@@ -38,7 +37,8 @@ public class KeyPair {
     private final PublicKey publicKey;
 
     /**
-     *
+     * Constructor assembles the keychain (keypair) based on the 
+     * public and private keys provided at the time of creation
      * @param privateKey
      * @param publicKey
      */
@@ -48,7 +48,7 @@ public class KeyPair {
     }
     
     /**
-     *
+     * Returns the private key attached to the keychain
      * @return
      */
     public PrivateKey getPrivateKey() {
@@ -56,7 +56,7 @@ public class KeyPair {
     }
     
     /**
-     *
+     * Returns the public key attached to the keychain
      * @return
      */
     public PublicKey getPublicKey() {

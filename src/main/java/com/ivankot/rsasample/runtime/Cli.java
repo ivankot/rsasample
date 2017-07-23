@@ -29,8 +29,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -39,7 +37,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- *
+ * Class that handles work with command line arguments for the application
  * @author Ivan
  */
 public enum Cli {
@@ -60,56 +58,59 @@ public enum Cli {
     public static final String DEFAULT_OUTPUT = "stdout";
 
     /**
-     *
+     * Command that identifies the key to use, either private or public,
+     * depending on action chosen
      */
     public static final String CMD_KEY = "k";
     public static final String CMD_KEY_LONG = "key";
     public static final String CMD_KEY_DESC = "Path to private/public key";
 
     /**
-     *
+     * Command that tells the application to encrypt input
      */
     public static final String CMD_ENCODE = "e";
     public static final String CMD_ENCODE_LONG = "encrypt";
     public static final String CMD_ENCODE_DESC = "Tells to encrypt input using private key";
 
     /**
-     *
+     * Command that tells the application to decrypt input
      */
     public static final String CMD_DECODE = "d";
     public static final String CMD_DECODE_LONG = "decrypt";
     public static final String CMD_DECODE_DESC = "Tells to decrypt input using public key";
 
     /**
-     *
+     * Command that tells the application where to store output, either file or
+     * stdout for the output stream
      */
     public static final String CMD_OUTPUT = "o";
     public static final String CMD_OUTPUT_LONG = "output";
     public static final String CMD_OUTPUT_DESC = "File/stream to use as output, if no given will write to stdout";
 
     /**
-     *
+     * Command that displays help and exits
      */
     public static final String CMD_HELP = "h";
     public static final String CMD_HELP_LONG = "help";
     public static final String CMD_HELP_DESC = "Display this help menu";
 
     /**
-     *
+     * Command that tells the application to generate key pair in the current dir
      */
     public static final String CMD_GENERATE = "g";
     public static final String CMD_GENERATE_LONG = "generate";
     public static final String CMD_GENERATE_DESC = "Generate private & public key in the current directory";
 
     /**
-     *
+     * Command that tells the app to execute encryption/decryption in 
+     * the background
      */
     public static final String CMD_BACKGROUND = "b";
     public static final String CMD_BACKGROUND_LONG = "background";
     public static final String CMD_BACKGROUND_DESC = "Execute encryption/decryption in the background";
 
     /**
-     *
+     * Command that tells the application to be verbose about what it does
      */
     public static final String CMD_VERBOSE = "v";
     public static final String CMD_VERBOSE_LONG = "verbose";

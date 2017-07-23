@@ -47,18 +47,20 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 /**
- *
+ * Provider is responsible for all cryptographic-related functionality within
+ * the application. 
+ * It encapsulates the following entites: Keychain and Cipher
  * @author Ivan
  */
 public enum Provider {
 
     /**
-     *
+     * Singleton instance of the provider
      */
     INSTANCE;
 
     /**
-     * Provides access to keychain tool
+     * Provides access to the keychain tool
      *
      * @return Keychain keychain tool used
      */
@@ -76,7 +78,7 @@ public enum Provider {
     }
 
     /**
-     *
+     * Provides access to the decoder tool
      * @return
      */
     public Cipher getDecoder() {
@@ -84,28 +86,30 @@ public enum Provider {
     }
 
     /**
-     *
+     * Keychain tool that utilizes Generator on its lower level in order to 
+     * create a KeyPair and attach it to keychain (itself)
      */
     public enum Keychain {
 
         /**
-         *
+         * Singleton instance of the class
          */
         INSTANCE;
 
         /**
-         *
+         * Default (non-changeable) key size, 2048 is secure enough for 
+         * almost any scenario
          */
         public static final int CRYPTO_KEY_SIZE = 2048;
 
         /**
-         *
+         * Encryption algorithm; since this is based around RSA defaults to that
          */
         public static final String CRYTO_ALG = "RSA";
 
         /**
-         *
-         * @return
+         * Creates and returns a KeyPair using the key size and algorithm
+         * @return KeyPair key pair with public and private keys ready for use
          */
         public KeyPair generateKeyPair() {
             try {
@@ -122,22 +126,24 @@ public enum Provider {
     }
 
     /**
-     *
+     * Cipher class is responsible for encryption and decryption of content
+     * supplied to it, relies on the RSA algorithm and utilizes the strategy
+     * pattern to define course of action: either encrypt data or decrypt it
      */
     public enum Cipher {
 
         /**
-         *
+         * Singleton Cipher instance set to encrypt data
          */
         ENCRYPTOR(Cipher.STRATEGY_ENCRYPT),
 
         /**
-         *
+         * Singleton Cipher instance set to decrypt data
          */
         DECRYPTOR(Cipher.STRATEGY_DECRYPT);
 
         /**
-         *
+         * Name of the algorithm used, since it's related to RSA it is hardcoded 
          */
         public static final String CRYPTO_ALG = "RSA";
 
@@ -152,15 +158,15 @@ public enum Provider {
         }
         
         /**
-         *
-         * @return
+         * Gets the builder class for Cipher
+         * @return Builder builder class
          */
         public Builder builder() {
             return builder.get(strategy);
         }
 
         /**
-         *
+         * Builder class to configure the Ciper for a specific task
          */
         public class Builder {
 
@@ -174,9 +180,10 @@ public enum Provider {
             private boolean verbose = false;
 
             /**
-             *
-             * @param strategy
-             * @return
+             * Gets a Builder with a pre-defined strategy, normally used internally
+             * by the Cipher when it's configured through its constructor
+             * @param strategy strategy to use, should be one of Cipher's public constants for strategy (STRATEGY_*)
+             * @return Builder instance
              */
             public Builder get(String strategy) {
                 this.strategy = strategy;
@@ -185,9 +192,9 @@ public enum Provider {
             }
 
             /**
-             *
-             * @param key
-             * @return
+             * Sets the key to use for the action
+             * @param key key to use
+             * @return Builder instance
              */
             public Builder key(String key) {
                 this.key = key;
@@ -195,9 +202,9 @@ public enum Provider {
             }
 
             /**
-             *
-             * @param input
-             * @return
+             * Sets the input to use for the action
+             * @param input input to use for the action
+             * @return Builder instance
              */
             public Builder input(String input) {
                 this.input = input;
@@ -205,9 +212,9 @@ public enum Provider {
             }
 
             /**
-             *
-             * @param output
-             * @return
+             * Sets where to place output
+             * @param output path to file or 'stdout' for output stream
+             * @return Builder instance
              */
             public Builder output(String output) {
                 this.output = output;
@@ -215,9 +222,9 @@ public enum Provider {
             }
 
             /**
-             *
-             * @param background
-             * @return
+             * Sets whether the process needs to run as a daemon
+             * @param background true/false for background mode
+             * @return Builder instance
              */
             public Builder background(boolean background) {
                 this.background = background;
@@ -225,9 +232,9 @@ public enum Provider {
             }
 
             /**
-             *
-             * @param verbose
-             * @return
+             * Tells the app to be more verbose, at this point it doesn't do much
+             * @param verbose whether the app is verbose or not
+             * @return Builder instance
              */
             public Builder verbose(boolean verbose) {
                 this.verbose = verbose;
@@ -235,8 +242,8 @@ public enum Provider {
             }
 
             /**
-             *
-             * @return
+             * An analogy to Java's own cipher, does the encryption/decryption
+             * @return boolean result of the operation, always true for background
              */
             public boolean doFinal() {
                 if (background) {

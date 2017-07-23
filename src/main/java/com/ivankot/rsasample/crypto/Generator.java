@@ -33,7 +33,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.Base64;
 
 /**
- *
+ * Generator is responsible for keys generation as well as writing them to 
+ * current directory
  * @author Ivan
  */
 public class Generator {

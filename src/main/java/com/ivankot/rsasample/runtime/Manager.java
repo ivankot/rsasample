@@ -30,7 +30,9 @@ import com.ivankot.rsasample.crypto.Provider.Cipher.Builder;
 import java.util.Map;
 
 /**
- *
+ * Manager orchestrates work of the application by identifying the action 
+ * that needs to be taken, preparing everything for it, and passing control to
+ * executing entities
  * @author Ivan
  */
 public class Manager {
@@ -46,7 +48,8 @@ public class Manager {
     private final Cli cli = Cli.INSTANCE;
 
     /**
-     *
+     * Default constructor that accepts an array of command line arguments and
+     * processes it internally
      * @param args
      */
     public Manager(String[] args) {
@@ -54,7 +57,7 @@ public class Manager {
     }
 
     /**
-     *
+     * Based on the input provided, orchestrates execution of the application
      */
     public void orchestrate() {
         if (cli.init(args) && cli.validate()) {
